@@ -26,13 +26,13 @@ k4.metric("Avg success rate", f"{m.success_rate.mean() * 100:.2f}%")
 left, right = st.columns(2)
 lat = m.groupby(["ts", "service"]).p95_latency_ms.mean().reset_index()
 left.plotly_chart(px.line(lat, x="ts", y="p95_latency_ms", color="service", title="p95 latency (ms)"),
-                  use_container_width=True)
+                  width="stretch")
 by = i.groupby(["service", "severity"]).size().reset_index(name="count")
 right.plotly_chart(px.bar(by, x="service", y="count", color="severity", title="Incidents by service and severity"),
-                   use_container_width=True)
+                   width="stretch")
 
 st.subheader("Incidents")
-st.dataframe(i.sort_values("created_at", ascending=False), use_container_width=True)
+st.dataframe(i.sort_values("created_at", ascending=False), width="stretch")
 
 st.subheader("Ask PlatformPulse")
 q = st.text_input("e.g. Is Airflow healthy?")
